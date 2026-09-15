@@ -1,400 +1,269 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BCC by Mel · Bliss Chill and Cheers</title>
-  
-  <!-- Tailwind CSS & Lucide Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- QR Code Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              dark: '#0e0f13',
-              card: '#161820',
-              rose: '#e5a4a4',
-              gold: '#d4af37',
-              border: '#2a2d3d',
-              accent: '#f28e9b'
-            }
-          }
-        }
-      }
-    }
+    tailwind.config={theme:{extend:{colors:{brand:{dark:'#0e0f13',card:'#161820',rose:'#e5a4a4',gold:'#d4af37',border:'#2a2d3d',accent:'#f28e9b'}}}}};
   </script>
   <style>
-    body {
-      background-color: #0c0d12;
-      color: #f1f1f5;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-    .rose-gradient-text {
-      background: linear-gradient(135deg, #f7d6d9 0%, #e5a4a4 50%, #c4828b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .rose-border {
-      border: 1px solid rgba(229, 164, 164, 0.25);
-    }
-    .rose-border:hover {
-      border-color: rgba(229, 164, 164, 0.6);
-    }
-    .modal-backdrop {
-      background-color: rgba(6, 7, 10, 0.88);
-      backdrop-filter: blur(8px);
-    }
+    body{background-color:#0e0f13;color:#f1f1f5;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;}
+    .modal-bg{background-color:rgba(6,7,10,0.85);backdrop-filter:blur(8px);}
   </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
-
-  <!-- Header -->
-  <header class="sticky top-0 z-40 bg-brand-dark/90 backdrop-blur-md border-b border-brand-border">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-      
-      <!-- Brand & Logo -->
+  <header class="sticky top-0 z-40 bg-brand-dark/90 backdrop-blur border-b border-brand-border px-4 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
       <a href="#" onclick="showEventList()" class="flex items-center gap-3">
-        <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-brand-rose/60 shadow-lg flex-shrink-0 bg-brand-card">
-          <img src="logo.png" onerror="this.src='26387.jpg'; this.onerror=null;" alt="BCC Logo" class="w-full h-full object-cover">
-        </div>
-        <div>
-          <span class="text-xl font-extrabold tracking-wide rose-gradient-text block">BCC by Mel</span>
-          <span class="text-[10px] tracking-widest uppercase text-gray-400 block -mt-1 font-semibold">Bliss Chill and Cheers</span>
-        </div>
+        <div class="w-10 h-10 rounded-full border border-brand-rose/40 flex items-center justify-center bg-brand-card font-bold text-xs text-brand-rose">BCC</div>
+        <div class="flex flex-col"><span class="font-bold text-base text-white">BCC by Mel</span><span class="text-[10px] tracking-widest uppercase text-gray-400">Bliss Chill and Cheers</span></div>
       </a>
-
-      <!-- Action Nav -->
-      <div class="flex items-center gap-2 sm:gap-3">
-        <button onclick="openQrModal()" class="px-3 py-2 rounded-xl bg-brand-card border border-brand-border text-gray-300 hover:text-white hover:border-brand-rose/50 text-xs sm:text-sm font-medium flex items-center gap-1.5 transition">
-          <i data-lucide="qr-code" class="w-4 h-4 text-brand-rose"></i>
-          <span class="hidden sm:inline">Gäste-QR</span>
-        </button>
-
-        <button id="adminBtn" onclick="handleAdminToggle()" class="px-3.5 py-2 rounded-xl bg-brand-card border border-brand-border text-gray-300 hover:text-white hover:border-brand-rose/50 text-xs sm:text-sm font-medium flex items-center gap-1.5 transition">
-          <i data-lucide="shield-check" class="w-4 h-4 text-brand-rose"></i>
-          <span id="adminBtnText">Admin</span>
-        </button>
-
-        <button id="newEventNavBtn" onclick="openNewEventModal()" class="hidden px-3.5 py-2 rounded-xl bg-gradient-to-r from-brand-rose to-brand-accent text-brand-dark font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-lg shadow-brand-rose/10 hover:opacity-95 transition">
-          <i data-lucide="plus-circle" class="w-4 h-4"></i>
-          <span>Event erstellen</span>
-        </button>
+      <div class="flex items-center gap-2">
+        <button onclick="openQrModal()" class="p-2 rounded-lg bg-brand-card border border-brand-border text-gray-300 hover:text-white"><i data-lucide="qr-code" class="w-5 h-5"></i></button>
+        <button id="adminBtn" onclick="toggleAdmin()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-card border border-brand-border text-xs font-semibold text-gray-200"><i data-lucide="shield" class="w-4 h-4 text-brand-rose"></i><span id="adminBtnText">Admin</span></button>
+        <button id="newEventNavBtn" onclick="openNewEventModal()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold"><i data-lucide="plus-circle" class="w-4 h-4"></i><span>Event erstellen</span></button>
       </div>
-
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 py-8 w-full">
-    
-    <!-- View 1: Event List -->
-    <div id="eventListView" class="space-y-8">
-      
-      <!-- Hero Banner -->
-      <div class="text-center py-10 px-4 bg-gradient-to-b from-brand-card/70 to-transparent rounded-3xl border border-brand-border/60">
-        <span class="inline-block text-xs uppercase tracking-widest text-brand-rose font-bold mb-2">Exklusive Momente & Erlebnisse</span>
-        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 rose-gradient-text">Event & Foto Archiv</h1>
-        <p class="text-gray-400 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-          Wähle ein vergangenes Event aus, sieh dir alle Fotos der Gäste & Fotografen an oder lade deine Favoriten in voller Qualität herunter.
-        </p>
+  <main class="flex-grow max-w-7xl mx-auto px-4 py-6 w-full">
+    <div id="eventListView" class="space-y-6">
+      <div class="text-center py-6 border-b border-brand-border/60">
+        <span class="text-xs uppercase tracking-widest text-brand-rose font-semibold">Exklusive Momente & Erlebnisse</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold mt-1 text-white">Event & Foto Archiv</h1>
+        <p class="text-sm text-gray-400 mt-2 max-w-md mx-auto">Wähle ein Event aus, sieh dir alle Fotos an oder lade deine Favoriten herunter.</p>
       </div>
-
-      <!-- Events Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="eventsGridContainer">
-        <!-- Javascript renders events here -->
-      </div>
+      <div id="eventsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </div>
 
-    <!-- View 2: Single Event Album Detail -->
-    <div id="albumView" class="hidden space-y-8">
-      
-      <!-- Back button & Top bar -->
-      <div class="flex flex-wrap items-center justify-between gap-4">
-        <button onclick="showEventList()" class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition text-sm font-medium">
-          <i data-lucide="arrow-left" class="w-4 h-4"></i>
-          Alle Events
-        </button>
-
+    <div id="albumView" class="hidden space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-brand-border/60 pb-4">
+        <button onclick="showEventList()" class="flex items-center gap-2 text-xs font-semibold text-gray-400 hover:text-white bg-brand-card px-3 py-1.5 rounded-lg border border-brand-border"><i data-lucide="arrow-left" class="w-4 h-4"></i><span>Alle Events</span></button>
         <div id="albumAdminActions" class="hidden flex items-center gap-2">
-          <button onclick="openUploadModal()" class="px-3.5 py-2 rounded-xl bg-brand-card border border-brand-rose/40 text-brand-rose hover:bg-brand-rose hover:text-brand-dark text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition">
-            <i data-lucide="camera" class="w-4 h-4"></i>
-            Fotos hinzufügen
-          </button>
-          <button onclick="deleteCurrentEvent()" class="p-2 rounded-xl bg-red-950/40 border border-red-800/40 text-red-400 hover:bg-red-800 hover:text-white transition text-xs">
-            <i data-lucide="trash-2" class="w-4 h-4"></i>
-          </button>
+          <button onclick="openUploadModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold"><i data-lucide="upload" class="w-4 h-4"></i><span>Fotos hinzufügen</span></button>
+          <button onclick="deleteCurrentEvent()" class="p-1.5 rounded-lg bg-red-500/20 text-red-400 border border-red-500/30"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
         </div>
-      </div>
-
-      <!-- Album Header -->
-      <div class="relative bg-brand-card/70 border border-brand-border p-6 sm:p-10 rounded-3xl overflow-hidden">
-        <div class="max-w-3xl">
-          <div class="flex items-center gap-2 text-brand-rose text-xs uppercase tracking-wider font-semibold mb-2" id="albumDateLocation">
-            <!-- Rendered by JS -->
-          </div>
-          <h2 class="text-2xl sm:text-4xl font-extrabold mb-3 rose-gradient-text" id="albumTitle">
-            <!-- Rendered by JS -->
-          </h2>
-          <p class="text-gray-300 text-sm sm:text-base leading-relaxed" id="albumDesc">
-            <!-- Rendered by JS -->
-          </p>
-        </div>
-
-        <!-- Filter / Chapter Chips -->
-        <div class="mt-8 flex flex-wrap gap-2" id="albumChaptersNav">
-          <!-- Rendered by JS -->
-        </div>
-      </div>
-
-      <!-- Photo Grid -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4" id="albumPhotosGrid">
-        <!-- Rendered by JS -->
-      </div>
-
-    </div>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="border-t border-brand-border py-8 text-center text-xs text-gray-500 bg-brand-dark">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <span class="font-bold text-gray-300">BCC by Mel</span>
-        <span>•</span>
-        <span>Bliss Chill and Cheers</span>
       </div>
       <div>
-        Live Event-Galerie & Foto-Download
+        <h2 id="albumTitle" class="text-2xl sm:text-3xl font-bold text-white"></h2>
+        <div id="albumDateLocation" class="text-xs text-gray-400 mt-1"></div>
+        <p id="albumDesc" class="text-sm text-gray-300 mt-2"></p>
       </div>
+      <div id="albumChaptersNav" class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-brand-border/40"></div>
+      <div id="photosGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3"></div>
     </div>
+  </main>
+
+  <footer class="border-t border-brand-border/60 py-6 text-center text-xs text-gray-500 bg-brand-dark">
+    <p class="font-medium text-gray-400">BCC by Mel · Bliss Chill and Cheers</p>
   </footer>
 
-  <!-- MODAL: Lightbox -->
-  <div id="lightboxModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <button onclick="closeLightbox()" class="absolute top-4 right-4 p-2 text-gray-400 hover:text-white bg-brand-card/60 rounded-full">
-      <i data-lucide="x" class="w-6 h-6"></i>
-    </button>
-    <button onclick="navigateLightbox(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 text-gray-300 hover:text-white bg-brand-card/80 border border-brand-border rounded-full transition">
-      <i data-lucide="chevron-left" class="w-6 h-6"></i>
-    </button>
-    <button onclick="navigateLightbox(1)" class="absolute right-4 top-1/2 -translate-y-1/2 p-3 text-gray-300 hover:text-white bg-brand-card/80 border border-brand-border rounded-full transition">
-      <i data-lucide="chevron-right" class="w-6 h-6"></i>
-    </button>
+  <!-- Lightbox Modal -->
+  <div id="lightboxModal" class="hidden fixed inset-0 z-50 modal-bg flex items-center justify-center p-4">
+    <button onclick="closeLightbox()" class="absolute top-4 right-4 text-gray-300 p-2"><i data-lucide="x" class="w-7 h-7"></i></button>
+    <button onclick="navigateLightbox(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300 p-2"><i data-lucide="chevron-left" class="w-8 h-8"></i></button>
+    <button onclick="navigateLightbox(1)" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 p-2"><i data-lucide="chevron-right" class="w-8 h-8"></i></button>
+    <div class="max-w-4xl max-h-[85vh] flex flex-col items-center">
+      <img id="lightboxImg" src="" alt="Vorschau" class="max-w-full max-h-[75vh] object-contain rounded-lg border border-brand-border">
+      <a id="lightboxDownloadBtn" href="" download="bcc-foto.jpg" class="mt-3 flex items-center gap-2 px-4 py-2 bg-brand-rose text-brand-dark rounded-lg text-xs font-bold"><i data-lucide="download" class="w-4 h-4"></i><span>Herunterladen</span></a>
+    </div>
+  </div>
 
-    <div class="max-w-5xl max-h-[85vh] flex flex-col items-center">
-      <img id="lightboxImg" src="" alt="Großansicht" class="max-h-[75vh] w-auto max-w-full rounded-xl object-contain shadow-2xl">
-      <div class="mt-4 flex items-center justify-between w-full max-w-md px-2">
-        <span id="lightboxCaption" class="text-xs text-gray-300 truncate"></span>
-        <a id="lightboxDownloadBtn" href="#" download class="px-3 py-1.5 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold flex items-center gap-1.5 hover:opacity-90">
-          <i data-lucide="download" class="w-3.5 h-3.5"></i>
-          Herunterladen
-        </a>
+  <!-- QR Modal -->
+  <div id="qrModal" class="hidden fixed inset-0 z-50 modal-bg flex items-center justify-center p-4">
+    <div class="bg-brand-card border border-brand-border rounded-xl max-w-sm w-full p-6 text-center">
+      <h3 class="text-lg font-bold text-white mb-1">Galerie QR-Code</h3>
+      <div id="qrCodeContainer" class="p-3 bg-white rounded-lg inline-block mx-auto my-3"></div>
+      <button onclick="closeQrModal()" class="w-full py-2 bg-brand-border text-gray-200 text-xs font-semibold rounded-lg">Schließen</button>
+    </div>
+  </div>
+
+  <!-- Upload Modal -->
+  <div id="uploadModal" class="hidden fixed inset-0 z-50 modal-bg flex items-center justify-center p-4">
+    <div class="bg-brand-card border border-brand-border rounded-xl max-w-md w-full p-6 space-y-3 text-xs">
+      <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="camera" class="w-5 h-5 text-brand-rose"></i><span>Fotos hochladen</span></h3>
+      <div><label class="block text-gray-300 mb-1">Kapitel</label><select id="uploadChapterSelect" class="w-full bg-brand-dark border border-brand-border rounded p-2 text-white"></select></div>
+      <div><label class="block text-gray-300 mb-1">Fotos</label><input type="file" id="photoFileInput" multiple accept="image/*" class="w-full text-gray-400 bg-brand-dark border border-brand-border rounded p-2"></div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeUploadModal()" class="px-3 py-1.5 text-gray-400">Abbrechen</button>
+        <button onclick="processPhotoUpload()" class="px-4 py-1.5 bg-brand-rose text-brand-dark font-bold rounded">Hochladen</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: QR-Code -->
-  <div id="qrModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-brand-card border border-brand-border w-full max-w-sm rounded-3xl p-6 text-center space-y-4">
-      <div class="flex justify-between items-center">
-        <h3 class="font-bold text-lg text-white">Event-Link für Gäste</h3>
-        <button onclick="closeQrModal()" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+  <!-- New Event Modal -->
+  <div id="newEventModal" class="hidden fixed inset-0 z-50 modal-bg flex items-center justify-center p-4">
+    <div class="bg-brand-card border border-brand-border rounded-xl max-w-md w-full p-6 space-y-3 text-xs">
+      <h3 class="text-lg font-bold text-white flex items-center gap-2"><i data-lucide="calendar-plus" class="w-5 h-5 text-brand-rose"></i><span>Neues Event</span></h3>
+      <div><label class="block text-gray-300 mb-1">Titel</label><input type="text" id="eventTitleInput" placeholder="z. B. BCC White Summer Garden Party" class="w-full bg-brand-dark border border-brand-border rounded p-2 text-white"></div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="block text-gray-300 mb-1">Datum</label><input type="text" id="eventDateInput" placeholder="12. September 2026" class="w-full bg-brand-dark border border-brand-border rounded p-2 text-white"></div>
+        <div><label class="block text-gray-300 mb-1">Ort</label><input type="text" id="eventLocationInput" placeholder="Moerser Brauhaus" class="w-full bg-brand-dark border border-brand-border rounded p-2 text-white"></div>
       </div>
-      <p class="text-xs text-gray-400">Gäste können diesen QR-Code scannen, um direkt alle Bilder zu sehen:</p>
-      <div class="bg-white p-4 rounded-2xl inline-block shadow-lg" id="qrcodeContainer"></div>
-      <div class="pt-2">
-        <button onclick="closeQrModal()" class="w-full py-2.5 rounded-xl bg-brand-dark border border-brand-border text-xs font-semibold text-gray-300 hover:text-white">
-          Schließen
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: Neues Event anlegen (Admin) -->
-  <div id="newEventModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-brand-card border border-brand-border w-full max-w-lg rounded-3xl p-6 sm:p-8 space-y-4 max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center border-b border-brand-border pb-3">
-        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-          <i data-lucide="plus-circle" class="w-5 h-5 text-brand-rose"></i> Neues Event anlegen
-        </h3>
-        <button onclick="closeNewEventModal()" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
-      </div>
-      
-      <form id="newEventForm" onsubmit="saveNewEvent(event)" class="space-y-4 text-xs sm:text-sm">
-        <div>
-          <label class="block text-gray-300 mb-1 font-medium">Titel des Events *</label>
-          <input type="text" id="eventTitleInput" required placeholder="z. B. BCC White Party 2026" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-rose">
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-gray-300 mb-1 font-medium">Datum *</label>
-            <input type="text" id="eventDateInput" required placeholder="12. Sept 2026" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-rose">
-          </div>
-          <div>
-            <label class="block text-gray-300 mb-1 font-medium">Ort / Location</label>
-            <input type="text" id="eventLocationInput" placeholder="Moerser Brauhaus" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-rose">
-          </div>
-        </div>
-        <div>
-          <label class="block text-gray-300 mb-1 font-medium">Beschreibung</label>
-          <textarea id="eventDescInput" rows="2" placeholder="Ein kurzer Rückblick..." class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-rose"></textarea>
-        </div>
-        <div>
-          <label class="block text-gray-300 mb-1 font-medium">Kapitel / Rubriken (Kommagetrennt)</label>
-          <input type="text" id="eventChaptersInput" placeholder="Ankommen, Buffet, Party, Nacht" value="Highlights, Party" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-rose">
-        </div>
-        <div>
-          <label class="block text-gray-300 mb-1 font-medium">Titelbild (Cover) URL oder Upload</label>
-          <input type="file" accept="image/*" id="eventCoverUpload" onchange="previewCoverFile(event)" class="w-full bg-brand-dark border border-brand-border rounded-xl p-2 text-gray-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:bg-brand-card file:text-brand-rose">
-        </div>
-
-        <div class="pt-3 flex gap-2">
-          <button type="button" onclick="closeNewEventModal()" class="flex-1 py-2.5 rounded-xl bg-brand-dark border border-brand-border text-gray-400 font-semibold">Abbrechen</button>
-          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-brand-rose to-brand-accent text-brand-dark font-bold shadow-lg">Event speichern</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL: Foto Upload (Admin) -->
-  <div id="uploadModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-brand-card border border-brand-border w-full max-w-md rounded-3xl p-6 space-y-4">
-      <div class="flex justify-between items-center border-b border-brand-border pb-3">
-        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-          <i data-lucide="camera" class="w-5 h-5 text-brand-rose"></i> Neue Bilder hochladen
-        </h3>
-        <button onclick="closeUploadModal()" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
-      </div>
-
-      <div class="space-y-3 text-xs sm:text-sm">
-        <div>
-          <label class="block text-gray-300 mb-1 font-medium">In welches Kapitel?</label>
-          <select id="uploadChapterSelect" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-brand-rose">
-            <!-- Filled dynamically -->
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-gray-300 mb-1 font-medium">Fotos auswählen / Direkt fotografieren</label>
-          <input type="file" id="photoFilesInput" multiple accept="image/*" class="w-full bg-brand-dark border border-brand-border rounded-xl p-3 text-gray-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:bg-brand-card file:text-brand-rose">
-        </div>
-      </div>
-
-      <div class="pt-3 flex gap-2">
-        <button onclick="closeUploadModal()" class="flex-1 py-2.5 rounded-xl bg-brand-dark border border-brand-border text-gray-400 font-semibold text-xs">Abbrechen</button>
-        <button onclick="processPhotoUploads()" class="flex-1 py-2.5 rounded-xl bg-brand-rose text-brand-dark font-bold text-xs shadow-lg">Fotos hinzufügen</button>
+      <div><label class="block text-gray-300 mb-1">Beschreibung</label><textarea id="eventDescInput" rows="2" class="w-full bg-brand-dark border border-brand-border rounded p-2 text-white"></textarea></div>
+      <div><label class="block text-gray-300 mb-1">Kapitel (Kommagetrennt)</label><input type="text" id="eventChaptersInput" placeholder="Ankommen, Party, Highlights" class="w-full bg-brand-dark border border-brand-border rounded p-2 text-white"></div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeNewEventModal()" class="px-3 py-1.5 text-gray-400">Abbrechen</button>
+        <button onclick="saveNewEvent()" class="px-4 py-1.5 bg-brand-rose text-brand-dark font-bold rounded">Speichern</button>
       </div>
     </div>
   </div>
 
-  <!-- Application Logic -->
   <script>
     const ADMIN_PIN = "1234";
-    let isAdmin = false;
-    let currentEventId = null;
-    let activeChapter = 'all';
-    let currentLightboxList = [];
-    let currentLightboxIdx = 0;
-    let tempCoverBase64 = null;
-
-    // Standard Initial-Daten
-    const DEFAULT_EVENTS = [
-      {
-        id: "bcc-white-party",
-        title: "BCC White Moers · Summer Garden Party",
-        date: "12. September 2026",
-        location: "Biergarten Moerser Brauhaus",
-        desc: "Ein Nachmittag in Weiß, ein Abend mit Musik und Wunderkerzen. Alle Fotos zum Anschauen und Herunterladen.",
-        cover: "26387.jpg",
-        chapters: ["Alle", "Ankommen", "Nachmittag", "Buffet", "Nacht"],
-        photos: [
-          { url: "26387.jpg", chapter: "Ankommen", name: "BCC-White-001.jpg" }
-        ]
-      }
-    ];
-
-    // Local Storage Loading
+    let isAdmin = false, currentEventId = null, activeChapter = "Alle", currentLightboxList = [], currentLightboxIndex = 0;
+    const DEFAULT_EVENTS = [{
+      id: "bcc-party", title: "BCC White Moers - Summer Garden Party", date: "12. September 2026", location: "Biergarten Moerser Brauhaus", desc: "Ein Nachmittag in Weiß, gute Musik & Drinks.", cover: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80", chapters: ["Alle", "Ankommen", "Party"], photos: [{ url: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1200&q=80", chapter: "Ankommen" }]
+    }];
     let eventsData = JSON.parse(localStorage.getItem('bcc_events_data')) || DEFAULT_EVENTS;
+    function saveState() { localStorage.setItem('bcc_events_data', JSON.stringify(eventsData)); }
 
-    function saveState() {
-      localStorage.setItem('bcc_events_data', JSON.stringify(eventsData));
-    }
+    document.addEventListener('DOMContentLoaded', () => { renderEventsList(); initQrCode(); lucide.createIcons(); });
 
-    // Init App
-    document.addEventListener("DOMContentLoaded", () => {
-      renderEventsList();
-      lucide.createIcons();
-      initQrCode();
-    });
-
-    // Views
     function showEventList() {
       document.getElementById('eventListView').classList.remove('hidden');
       document.getElementById('albumView').classList.add('hidden');
       currentEventId = null;
       renderEventsList();
     }
-
-    function showAlbumView(eventId) {
-      currentEventId = eventId;
+    function showAlbumView(id) {
+      currentEventId = id;
       document.getElementById('eventListView').classList.add('hidden');
       document.getElementById('albumView').classList.remove('hidden');
-      activeChapter = 'Alle';
+      activeChapter = "Alle";
       renderAlbumDetail();
     }
-
-    // Render Events Grid
     function renderEventsList() {
-      const container = document.getElementById('eventsGridContainer');
-      container.innerHTML = '';
-
+      const c = document.getElementById('eventsGrid');
+      c.innerHTML = '';
       eventsData.forEach(evt => {
         const card = document.createElement('div');
-        card.className = "bg-brand-card rounded-2xl border border-brand-border overflow-hidden rose-border flex flex-col justify-between group cursor-pointer transition transform hover:-translate-y-1 shadow-xl";
+        card.className = "bg-brand-card border border-brand-border rounded-xl overflow-hidden cursor-pointer hover:border-brand-rose transition flex flex-col";
         card.onclick = () => showAlbumView(evt.id);
-
         card.innerHTML = `
-          <div class="relative aspect-[16/10] bg-brand-dark overflow-hidden">
-            <img src="${evt.cover}" onerror="this.src='26387.jpg'; this.onerror=null;" alt="${evt.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-80"></div>
-            <span class="absolute bottom-3 left-3 bg-brand-dark/80 backdrop-blur-md px-2.5 py-1 rounded-lg text-[11px] font-semibold text-brand-rose border border-brand-rose/20 flex items-center gap-1">
-              <i data-lucide="image" class="w-3 h-3"></i> ${evt.photos ? evt.photos.length : 0} Fotos
-            </span>
+          <div class="h-44 bg-brand-dark overflow-hidden relative">
+            <img src="${evt.cover}" class="w-full h-full object-cover">
+            <div class="absolute bottom-2 left-2 bg-brand-dark/80 px-2 py-1 rounded text-[10px] text-brand-rose font-bold">${evt.photos ? evt.photos.length : 0} Fotos</div>
           </div>
-          <div class="p-5 flex flex-col justify-between flex-grow">
-            <div>
-              <div class="text-[11px] uppercase tracking-wider text-gray-400 font-semibold mb-1">${evt.date} · ${evt.location || ''}</div>
-              <h3 class="text-lg font-bold text-white mb-2 leading-tight group-hover:text-brand-rose transition">${evt.title}</h3>
-              <p class="text-xs text-gray-400 line-clamp-2">${evt.desc || ''}</p>
-            </div>
-            <div class="mt-4 pt-4 border-t border-brand-border flex items-center justify-between text-xs font-semibold text-brand-rose">
-              <span>Album ansehen</span>
-              <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
+          <div class="p-4 flex flex-col justify-between flex-grow">
+            <div><div class="text-[11px] uppercase tracking-wider text-gray-400 font-semibold mb-1">${evt.date} · ${evt.location||''}</div><h3 class="text-base font-bold text-white mb-1">${evt.title}</h3><p class="text-xs text-gray-400 line-clamp-2">${evt.desc||''}</p></div>
+            <div class="mt-4 pt-3 border-t border-brand-border flex items-center justify-between text-xs font-semibold text-brand-rose"><span>Album ansehen</span><i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+          </div>`;
+        c.appendChild(card);
       });
       lucide.createIcons();
     }
-
-    // Render Album Details
     function renderAlbumDetail() {
       const evt = eventsData.find(e => e.id === currentEventId);
       if (!evt) return showEventList();
-
       document.getElementById('albumTitle').textContent = evt.title;
-      document.getElementById('albumDateLocation').innerHTML = `<i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${evt.date} • ${evt.location || ''}`;
-      document.getElementById('albumDesc').textContent = evt.desc;
-
-      // Render Chapter Nav
-      const navContainer = document.getElementById('albumChaptersNav');
-      navContainer.innerHTML = '';
-      
-      const allChapters = ["Alle", ...(evt.chapters || []).filter(c => 
+      document.getElementById('albumDateLocation').innerHTML = `<i data-lucide="map-pin" class="w-3.5 h-3.5 inline"></i> ${evt.date} · ${evt.location||''}`;
+      document.getElementById('albumDesc').textContent = evt.desc || '';
+      const nav = document.getElementById('albumChaptersNav');
+      nav.innerHTML = '';
+      ["Alle", ...(evt.chapters||[]).filter(c=>c!=='Alle')].forEach(chap => {
+        const btn = document.createElement('button');
+        btn.className = `px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition ${activeChapter===chap?'bg-brand-rose text-brand-dark font-bold':'bg-brand-card border border-brand-border text-gray-400'}`;
+        btn.textContent = chap;
+        btn.onclick = () => { activeChapter = chap; renderAlbumDetail(); };
+        nav.appendChild(btn);
+      });
+      const grid = document.getElementById('photosGrid');
+      grid.innerHTML = '';
+      const photos = evt.photos || [];
+      const filtered = activeChapter === 'Alle' ? photos : photos.filter(p => p.chapter === activeChapter);
+      currentLightboxList = filtered;
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-8 text-center text-xs text-gray-500">Noch keine Fotos hier.</div>`;
+      } else {
+        filtered.forEach((p, idx) => {
+          const item = document.createElement('div');
+          item.className = "group relative aspect-square bg-brand-dark rounded-lg overflow-hidden border border-brand-border cursor-pointer";
+          item.innerHTML = `<img src="${p.url}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2"><button onclick="openLightbox(${idx}); event.stopPropagation();" class="p-1.5 bg-brand-card text-white rounded-full"><i data-lucide="maximize" class="w-4 h-4"></i></button><a href="${p.url}" download="foto.jpg" onclick="event.stopPropagation();" class="p-1.5 bg-brand-rose text-brand-dark rounded-full"><i data-lucide="download" class="w-4 h-4"></i></a></div>`;
+          item.onclick = () => openLightbox(idx);
+          grid.appendChild(item);
+        });
+      }
+      lucide.createIcons();
+    }
+    function toggleAdmin() {
+      if (!isAdmin) {
+        const pin = prompt("Admin-PIN eingeben:");
+        if (pin === ADMIN_PIN) { isAdmin = true; updateAdminUI(); }
+        else if (pin !== null) alert("Falsche PIN!");
+      } else { isAdmin = false; updateAdminUI(); }
+    }
+    function updateAdminUI() {
+      document.getElementById('adminBtnText').textContent = isAdmin ? 'Admin aktiv' : 'Admin';
+      document.getElementById('newEventNavBtn').classList.toggle('hidden', !isAdmin);
+      if (document.getElementById('albumAdminActions')) document.getElementById('albumAdminActions').classList.toggle('hidden', !isAdmin);
+    }
+    function openNewEventModal() { document.getElementById('newEventModal').classList.remove('hidden'); }
+    function closeNewEventModal() { document.getElementById('newEventModal').classList.add('hidden'); }
+    function saveNewEvent() {
+      const t = document.getElementById('eventTitleInput').value.trim();
+      if (!t) return alert("Titel eingeben!");
+      const newId = 'evt-' + Date.now();
+      eventsData.unshift({
+        id: newId, title: t, date: document.getElementById('eventDateInput').value.trim()||'Demnächst', location: document.getElementById('eventLocationInput').value.trim(), desc: document.getElementById('eventDescInput').value.trim(), cover: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80", chapters: ["Alle", ...document.getElementById('eventChaptersInput').value.split(',').map(s=>s.trim()).filter(Boolean)], photos: []
+      });
+      saveState(); closeNewEventModal(); showAlbumView(newId);
+    }
+    function deleteCurrentEvent() {
+      if (confirm("Event löschen?")) { eventsData = eventsData.filter(e => e.id !== currentEventId); saveState(); showEventList(); }
+    }
+    function openUploadModal() {
+      const evt = eventsData.find(e => e.id === currentEventId);
+      if (!evt) return;
+      const s = document.getElementById('uploadChapterSelect');
+      s.innerHTML = '';
+      (evt.chapters||["Highlights"]).filter(c=>c!=='Alle').forEach(c => {
+        const o = document.createElement('option'); o.value = c; o.textContent = c; s.appendChild(o);
+      });
+      document.getElementById('uploadModal').classList.remove('hidden');
+    }
+    function closeUploadModal() { document.getElementById('uploadModal').classList.add('hidden'); }
+    function processPhotoUpload() {
+      const fi = document.getElementById('photoFileInput'), ch = document.getElementById('uploadChapterSelect').value, files = Array.from(fi.files);
+      if (!files.length) return alert("Wähle Bilder aus!");
+      const evt = eventsData.find(e => e.id === currentEventId);
+      if (!evt) return;
+      if (!evt.photos) evt.photos = [];
+      let c = 0;
+      files.forEach(f => {
+        const r = new FileReader();
+        r.onload = (e) => {
+          evt.photos.push({ url: e.target.result, chapter: ch });
+          c++;
+          if (c === files.length) { saveState(); closeUploadModal(); renderAlbumDetail(); }
+        };
+        r.readAsDataURL(f);
+      });
+    }
+    function openLightbox(idx) {
+      currentLightboxIndex = idx;
+      const p = currentLightboxList[idx];
+      document.getElementById('lightboxImg').src = p.url;
+      document.getElementById('lightboxDownloadBtn').href = p.url;
+      document.getElementById('lightboxModal').classList.remove('hidden');
+    }
+    function closeLightbox() { document.getElementById('lightboxModal').classList.add('hidden'); }
+    function navigateLightbox(dir) {
+      let n = currentLightboxIndex + dir;
+      if (n < 0) n = currentLightboxList.length - 1;
+      if (n >= currentLightboxList.length) n = 0;
+      openLightbox(n);
+    }
+    function openQrModal() { document.getElementById('qrModal').classList.remove('hidden'); }
+    function closeQrModal() { document.getElementById('qrModal').classList.add('hidden'); }
+    function initQrCode() {
+      const el = document.getElementById('qrCodeContainer');
+      el.innerHTML = "";
+      new QRCode(el, { text: window.location.href, width: 160, height: 160, colorDark: "#0e0f13", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.H });
+    }
+  </script>
+</body>
+</html>
