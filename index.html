@@ -106,10 +106,10 @@
         </div>
 
         <div class="flex flex-wrap justify-center items-center gap-4 pt-2">
-          <button onclick="navigateTo('upcoming')" class="px-6 py-3 rounded-xl bg-brand-rose text-brand-dark font-bold text-sm shadow-lg hover:bg-brand-accent transition flex items-center gap-2">
+          <button onclick="navigateTo('upcoming')" class="px-6 py-3 rounded-xl bg-brand-rose text-brand-dark font-bold text-sm shadow-lg hover:bg-brand-accent transition flex items-center gap-2 cursor-pointer">
             <i data-lucide="calendar" class="w-4 h-4"></i> Anstehende Events
           </button>
-          <button onclick="navigateTo('archive')" class="px-6 py-3 rounded-xl bg-brand-card border border-brand-border text-white font-semibold text-sm hover:border-brand-rose/60 transition flex items-center gap-2">
+          <button onclick="navigateTo('archive')" class="px-6 py-3 rounded-xl bg-brand-card border border-brand-border text-white font-semibold text-sm hover:border-brand-rose/60 transition flex items-center gap-2 cursor-pointer">
             <i data-lucide="images" class="w-4 h-4 text-brand-rose"></i> Foto-Archiv ansehen
           </button>
         </div>
@@ -150,7 +150,7 @@
           <span class="text-xs uppercase tracking-widest text-brand-rose font-semibold">Line-Up & Termine</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-0.5">Anstehende Events</h2>
         </div>
-        <button id="newUpcomingEventBtn" onclick="openNewUpcomingModal()" class="hidden px-3.5 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold flex items-center gap-1.5">
+        <button id="newUpcomingEventBtn" onclick="openNewUpcomingModal()" class="hidden px-3.5 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold flex items-center gap-1.5 cursor-pointer">
           <i data-lucide="plus-circle" class="w-4 h-4"></i> Kommendes Event anlegen
         </button>
       </div>
@@ -165,7 +165,7 @@
           <span class="text-xs uppercase tracking-widest text-brand-rose font-semibold">Rückblick</span>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-0.5">Vergangene Events & Fotos</h2>
         </div>
-        <button id="newArchiveEventBtn" onclick="openNewEventModal()" class="hidden px-3.5 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold flex items-center gap-1.5">
+        <button id="newArchiveEventBtn" onclick="openNewEventModal()" class="hidden px-3.5 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold flex items-center gap-1.5 cursor-pointer">
           <i data-lucide="plus-circle" class="w-4 h-4"></i> Neues Album anlegen
         </button>
       </div>
@@ -176,7 +176,7 @@
     <!-- VIEW 4: ALBUM DETAILS -->
     <section id="view-album" class="hidden space-y-6">
       <div class="flex flex-wrap items-center justify-between gap-4 border-b border-brand-border/60 pb-4">
-        <button onclick="navigateTo('archive')" class="flex items-center gap-2 text-xs font-semibold text-gray-400 hover:text-white">
+        <button onclick="navigateTo('archive')" class="flex items-center gap-2 text-xs font-semibold text-gray-400 hover:text-white cursor-pointer">
           <i data-lucide="arrow-left" class="w-4 h-4"></i> Zurück zum Archiv
         </button>
         <div id="albumAdminActions" class="hidden flex items-center gap-2">
@@ -184,10 +184,10 @@
             <i data-lucide="image" class="w-4 h-4 text-brand-rose"></i> Titelbild ändern
             <input type="file" accept="image/*" class="hidden" onchange="changeAlbumCover(event)">
           </label>
-          <button onclick="openUploadModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold">
+          <button onclick="openUploadModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold cursor-pointer">
             <i data-lucide="upload" class="w-4 h-4"></i> Foto hochladen
           </button>
-          <button onclick="deleteCurrentEvent()" class="p-1.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30" title="Event löschen">
+          <button onclick="deleteCurrentEvent()" class="p-1.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 cursor-pointer" title="Event löschen">
             <i data-lucide="trash-2" class="w-4 h-4"></i>
           </button>
         </div>
@@ -261,8 +261,8 @@
         </div>
       </div>
       <div class="flex items-center justify-end gap-2 pt-2">
-        <button onclick="closeNewUpcomingModal()" class="px-4 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white">Abbrechen</button>
-        <button onclick="saveNewUpcomingEvent()" class="px-4 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold shadow-lg">Veröffentlichen</button>
+        <button onclick="closeNewUpcomingModal()" class="px-4 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white cursor-pointer">Abbrechen</button>
+        <button onclick="saveNewUpcomingEvent()" class="px-4 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold shadow-lg cursor-pointer">Veröffentlichen</button>
       </div>
     </div>
   </div>
@@ -298,8 +298,8 @@
         </div>
       </div>
       <div class="flex items-center justify-end gap-2 pt-2">
-        <button onclick="closeNewEventModal()" class="px-4 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white">Abbrechen</button>
-        <button onclick="saveNewEventWithCover()" class="px-4 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold shadow-lg">Speichern</button>
+        <button onclick="closeNewEventModal()" class="px-4 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white cursor-pointer">Abbrechen</button>
+        <button onclick="saveNewEventWithCover()" class="px-4 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold shadow-lg cursor-pointer">Speichern</button>
       </div>
     </div>
   </div>
@@ -315,8 +315,8 @@
         <input id="photoFileInput" type="file" accept="image/*" multiple class="w-full mt-1 text-xs text-gray-400 file:mr-2 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-rose file:text-brand-dark cursor-pointer">
       </div>
       <div class="flex items-center justify-end gap-2 pt-2">
-        <button onclick="closeUploadModal()" class="px-4 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white">Abbrechen</button>
-        <button onclick="uploadPhotos()" class="px-4 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold shadow-lg">Hochladen</button>
+        <button onclick="closeUploadModal()" class="px-4 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white cursor-pointer">Abbrechen</button>
+        <button onclick="uploadPhotos()" class="px-4 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold shadow-lg cursor-pointer">Hochladen</button>
       </div>
     </div>
   </div>
@@ -327,7 +327,7 @@
       <h3 class="text-lg font-bold text-white">Website teilen</h3>
       <div id="qrcode" class="p-3 bg-white rounded-xl inline-block shadow-lg"></div>
       <p class="text-xs text-gray-400">QR-Code scannen, um die Seite direkt auf dem Smartphone zu öffnen.</p>
-      <button onclick="closeQrModal()" class="w-full py-2 rounded-lg bg-brand-dark border border-brand-border text-xs font-semibold text-white">Schließen</button>
+      <button onclick="closeQrModal()" class="w-full py-2 rounded-lg bg-brand-dark border border-brand-border text-xs font-semibold text-white cursor-pointer">Schließen</button>
     </div>
   </div>
 
@@ -336,7 +336,6 @@
     let isAdmin = false;
     let currentEventId = null;
 
-    // Standarddaten
     const defaultUpcoming = [
       {
         id: 'upcoming-1',
@@ -345,7 +344,7 @@
         location: 'Biergarten Moerser Brauhaus',
         description: 'Ein Nachmittag in Weiß, feinste Beats, Cocktails & unvergessliche Sommermomente.',
         cover: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80',
-   ticketLink: '',
+        ticketLink: '',
         socialLink: 'https://instagram.com'
       }
     ];
@@ -364,12 +363,36 @@
       }
     ];
 
-    let upcomingEvents = JSON.parse(localStorage.getItem('bcc_upcoming')) || defaultUpcoming;
-    let events = JSON.parse(localStorage.getItem('bcc_events')) || defaultEvents;
+    let upcomingEvents = defaultUpcoming;
+    let events = defaultEvents;
+
+    try {
+      const storedUpcoming = localStorage.getItem('bcc_upcoming');
+      if (storedUpcoming) upcomingEvents = JSON.parse(storedUpcoming);
+    } catch(e) { console.error(e); }
+
+    try {
+      const storedEvents = localStorage.getItem('bcc_events');
+      if (storedEvents) events = JSON.parse(storedEvents);
+    } catch(e) { console.error(e); }
+
+    function safeLucide() {
+      try {
+        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+          window.lucide.createIcons();
+        }
+      } catch(e) {
+        console.warn('Lucide icons warning:', e);
+      }
+    }
 
     function saveToStorage() {
-      localStorage.setItem('bcc_upcoming', JSON.stringify(upcomingEvents));
-      localStorage.setItem('bcc_events', JSON.stringify(events));
+      try {
+        localStorage.setItem('bcc_upcoming', JSON.stringify(upcomingEvents));
+        localStorage.setItem('bcc_events', JSON.stringify(events));
+      } catch (e) {
+        console.error('Speicherfehler:', e);
+      }
     }
 
     function readFileAsBase64(file) {
@@ -381,7 +404,6 @@
       });
     }
 
-    // Navigation System
     function navigateTo(viewId) {
       ['home', 'upcoming', 'archive', 'album'].forEach(v => {
         const el = document.getElementById('view-' + v);
@@ -398,10 +420,10 @@
       if (viewId === 'upcoming') renderUpcomingEvents();
       if (viewId === 'archive') renderArchiveEvents();
       
+      safeLucide();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Admin Mode
     function toggleAdmin() {
       if (isAdmin) {
         isAdmin = false;
@@ -427,22 +449,24 @@
       if (isAdmin) {
         adminBtn.classList.add('bg-brand-rose/20', 'border-brand-rose');
         adminBtnText.innerText = 'Admin aktiv';
-        newUpcomingEventBtn.classList.remove('hidden');
-        newArchiveEventBtn.classList.remove('hidden');
-        albumAdminActions.classList.remove('hidden');
+        if (newUpcomingEventBtn) newUpcomingEventBtn.classList.remove('hidden');
+        if (newArchiveEventBtn) newArchiveEventBtn.classList.remove('hidden');
+        if (albumAdminActions) albumAdminActions.classList.remove('hidden');
       } else {
         adminBtn.classList.remove('bg-brand-rose/20', 'border-brand-rose');
         adminBtnText.innerText = 'Admin';
-        newUpcomingEventBtn.classList.add('hidden');
-        newArchiveEventBtn.classList.add('hidden');
-        albumAdminActions.classList.add('hidden');
+        if (newUpcomingEventBtn) newUpcomingEventBtn.classList.add('hidden');
+        if (newArchiveEventBtn) newArchiveEventBtn.classList.add('hidden');
+        if (albumAdminActions) albumAdminActions.classList.add('hidden');
       }
       renderUpcomingEvents();
       renderArchiveEvents();
+      safeLucide();
     }
-    // Upcoming Events Rendering
+
     function renderUpcomingEvents() {
       const grid = document.getElementById('upcomingEventsGrid');
+      if (!grid) return;
       grid.innerHTML = '';
 
       if (upcomingEvents.length === 0) {
@@ -458,7 +482,7 @@
             <div class="relative h-56 bg-brand-dark overflow-hidden">
               <img src="${ev.cover}" alt="${ev.title}" class="w-full h-full object-cover">
               ${isAdmin ? `
-                <button onclick="deleteUpcomingEvent(${idx})" class="absolute top-3 right-3 p-2 rounded-lg bg-red-500/80 text-white hover:bg-red-600 backdrop-blur" title="Event entfernen">
+                <button onclick="deleteUpcomingEvent(${idx})" class="absolute top-3 right-3 p-2 rounded-lg bg-red-500/80 text-white hover:bg-red-600 backdrop-blur cursor-pointer" title="Event entfernen">
                   <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
               ` : ''}
@@ -484,10 +508,9 @@
         `;
         grid.appendChild(card);
       });
-      lucide.createIcons();
+      safeLucide();
     }
 
-    // Modal: Anstehendes Event
     function openNewUpcomingModal() {
       document.getElementById('upTitle').value = '';
       document.getElementById('upDate').value = '';
@@ -497,6 +520,7 @@
       document.getElementById('upSocialLink').value = '';
       document.getElementById('upCoverInput').value = '';
       document.getElementById('newUpcomingModal').classList.remove('hidden');
+      safeLucide();
     }
 
     function closeNewUpcomingModal() {
@@ -537,11 +561,18 @@
       closeNewUpcomingModal();
       renderUpcomingEvents();
     }
+
+    function deleteUpcomingEvent(index) {
+      if (confirm('Möchtest du dieses anstehende Event löschen?')) {
+        upcomingEvents.splice(index, 1);
+        saveToStorage();
+        renderUpcomingEvents();
+      }
     }
 
-    // Archive Rendering
     function renderArchiveEvents() {
       const grid = document.getElementById('archiveEventsGrid');
+      if (!grid) return;
       grid.innerHTML = '';
 
       events.forEach(event => {
@@ -552,7 +583,7 @@
             <div class="relative h-48 overflow-hidden bg-brand-dark">
               <img src="${event.cover}" alt="${event.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
               <span class="absolute top-3 left-3 bg-black/60 backdrop-blur text-[11px] font-semibold text-white px-2.5 py-1 rounded-full border border-white/10">
-                ${event.photos.length} Fotos
+                ${event.photos ? event.photos.length : 0} Fotos
               </span>
             </div>
             <div class="p-5 space-y-2">
@@ -562,7 +593,7 @@
             </div>
           </div>
           <div class="p-5 pt-0">
-            <button onclick="openAlbum('${event.id}')" class="w-full py-2.5 rounded-xl bg-brand-dark hover:bg-brand-rose/10 border border-brand-border text-xs font-semibold text-white flex items-center justify-between px-4 transition">
+            <button onclick="openAlbum('${event.id}')" class="w-full py-2.5 rounded-xl bg-brand-dark hover:bg-brand-rose/10 border border-brand-border text-xs font-semibold text-white flex items-center justify-between px-4 transition cursor-pointer">
               <span>Album ansehen</span>
               <i data-lucide="arrow-right" class="w-4 h-4 text-brand-rose"></i>
             </button>
@@ -570,10 +601,9 @@
         `;
         grid.appendChild(card);
       });
-      lucide.createIcons();
+      safeLucide();
     }
 
-    // Album Views
     function openAlbum(id) {
       currentEventId = id;
       const event = events.find(e => e.id === id);
@@ -585,31 +615,34 @@
       document.getElementById('albumDateLocation').innerText = `${event.date} · ${event.location}`;
       document.getElementById('albumDesc').innerText = event.description || '';
       document.getElementById('albumCoverImg').src = event.cover;
-      document.getElementById('photoCountBadge').innerText = `${event.photos.length} Fotos`;
+      document.getElementById('photoCountBadge').innerText = `${event.photos ? event.photos.length : 0} Fotos`;
 
       renderAlbumPhotos(event);
     }
 
     function renderAlbumPhotos(event) {
       const grid = document.getElementById('photosGrid');
+      if (!grid) return;
       grid.innerHTML = '';
 
-      if (event.photos.length === 0) {
+      const photos = event.photos || [];
+
+      if (photos.length === 0) {
         grid.innerHTML = `<div class="col-span-full py-12 text-center text-gray-500 text-sm">Noch keine Fotos in diesem Album vorhanden.</div>`;
         return;
       }
 
-      event.photos.forEach((photoUrl, index) => {
+      photos.forEach((photoUrl, index) => {
         const item = document.createElement('div');
         item.className = 'relative group rounded-xl overflow-hidden border border-brand-border bg-brand-dark aspect-square';
         item.innerHTML = `
           <img src="${photoUrl}" class="w-full h-full object-cover">
           <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 p-2">
-            <a href="${photoUrl}" download="bcc-foto-${index + 1}.jpg" class="p-2 rounded-lg bg-white/20 hover:bg-white/40 text-white backdrop-blur" title="Herunterladen">
+            <a href="${photoUrl}" download="bcc-foto-${index + 1}.jpg" class="p-2 rounded-lg bg-white/20 hover:bg-white/40 text-white backdrop-blur cursor-pointer" title="Herunterladen">
               <i data-lucide="download" class="w-4 h-4"></i>
             </a>
             ${isAdmin ? `
-              <button onclick="deletePhoto(${index})" class="p-2 rounded-lg bg-red-500/30 hover:bg-red-500/50 text-red-200 backdrop-blur" title="Löschen">
+              <button onclick="deletePhoto(${index})" class="p-2 rounded-lg bg-red-500/30 hover:bg-red-500/50 text-red-200 backdrop-blur cursor-pointer" title="Löschen">
                 <i data-lucide="trash-2" class="w-4 h-4"></i>
               </button>
             ` : ''}
@@ -617,10 +650,9 @@
         `;
         grid.appendChild(item);
       });
-      lucide.createIcons();
+      safeLucide();
     }
 
-    // Archive Modals & Uploads
     function openNewEventModal() {
       document.getElementById('newEventTitle').value = '';
       document.getElementById('newEventDate').value = '';
@@ -628,6 +660,7 @@
       document.getElementById('newEventDesc').value = '';
       document.getElementById('newEventCoverInput').value = '';
       document.getElementById('newEventModal').classList.remove('hidden');
+      safeLucide();
     }
 
     function closeNewEventModal() {
@@ -665,6 +698,7 @@
       closeNewEventModal();
       renderArchiveEvents();
     }
+
     async function changeAlbumCover(event) {
       const file = event.target.files[0];
       if (!file || !currentEventId) return;
@@ -691,6 +725,7 @@
     function openUploadModal() {
       document.getElementById('photoFileInput').value = '';
       document.getElementById('uploadModal').classList.remove('hidden');
+      safeLucide();
     }
 
     function closeUploadModal() {
@@ -707,6 +742,8 @@
 
       const targetEvent = events.find(e => e.id === currentEventId);
       if (!targetEvent) return;
+
+      if (!targetEvent.photos) targetEvent.photos = [];
 
       for (let i = 0; i < files.length; i++) {
         const base64 = await readFileAsBase64(files[i]);
@@ -730,27 +767,38 @@
       }
     }
 
-    // QR Modal
     function openQrModal() {
-      document.getElementById('qrcode').innerHTML = '';
-      new QRCode(document.getElementById('qrcode'), {
-        text: window.location.href,
-        width: 160,
-        height: 160,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
+      const qrEl = document.getElementById('qrcode');
+      qrEl.innerHTML = '';
+      try {
+        new QRCode(qrEl, {
+          text: window.location.href,
+          width: 160,
+          height: 160,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      } catch(e) { console.warn('QR Code generation skipped:', e); }
       document.getElementById('qrModal').classList.remove('hidden');
+      safeLucide();
     }
 
     function closeQrModal() {
       document.getElementById('qrModal').classList.add('hidden');
     }
 
-    // Init
+    // Beim Laden direkt ausführen
+    window.addEventListener('DOMContentLoaded', () => {
+      navigateTo('home');
+      updateAdminUI();
+      safeLucide();
+    });
+
+    // Fallback-Initialisierung
     navigateTo('home');
     updateAdminUI();
+    safeLucide();
   </script>
 </body>
 </html>
