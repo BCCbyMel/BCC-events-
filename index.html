@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BCC by Mel · Bliss Chill and Cheers · Event & Foto Archiv</title>
+  <title>BCC by Mel · Bliss Chill and Cheers</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -29,10 +29,10 @@
     body {
       background-color: #0d0b14;
       background-image: 
-        radial-gradient(at 10% 20%, rgba(229, 115, 175, 0.08) 0px, transparent 50%),
-        radial-gradient(at 90% 10%, rgba(212, 139, 181, 0.06) 0px, transparent 50%),
-        radial-gradient(at 50% 60%, rgba(242, 168, 204, 0.05) 0px, transparent 50%),
-        radial-gradient(at 80% 90%, rgba(139, 92, 246, 0.05) 0px, transparent 50%);
+        radial-gradient(at 10% 15%, rgba(212, 139, 181, 0.12) 0px, transparent 50%),
+        radial-gradient(at 90% 10%, rgba(203, 163, 88, 0.08) 0px, transparent 50%),
+        radial-gradient(at 50% 60%, rgba(242, 168, 204, 0.06) 0px, transparent 50%),
+        radial-gradient(at 80% 90%, rgba(139, 92, 246, 0.08) 0px, transparent 50%);
       background-attachment: fixed;
       color: #f1f1f5;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -45,73 +45,161 @@
       background-color: rgba(6, 4, 10, 0.85);
       backdrop-filter: blur(8px);
     }
+    .nav-btn.active {
+      background-color: rgba(212, 139, 181, 0.15);
+      color: #d48bb5;
+      border-color: rgba(212, 139, 181, 0.4);
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
 
-  <!-- Header (Aktionen rechts) -->
+  <!-- Header & Navigation -->
   <header class="sticky top-0 z-40 bg-brand-dark/90 backdrop-blur border-b border-brand-border px-4 py-3">
-    <div class="max-w-7xl mx-auto flex items-center justify-end">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+      
+      <!-- Brand Links / Tabs -->
+      <nav class="flex items-center gap-1.5 sm:gap-2">
+        <button id="nav-home" onclick="navigateTo('home')" class="nav-btn active px-3 py-1.5 rounded-lg border border-transparent text-xs sm:text-sm font-semibold text-gray-300 hover:text-white transition">
+          Home
+        </button>
+        <button id="nav-upcoming" onclick="navigateTo('upcoming')" class="nav-btn px-3 py-1.5 rounded-lg border border-transparent text-xs sm:text-sm font-semibold text-gray-300 hover:text-white transition">
+          Anstehende Events
+        </button>
+        <button id="nav-archive" onclick="navigateTo('archive')" class="nav-btn px-3 py-1.5 rounded-lg border border-transparent text-xs sm:text-sm font-semibold text-gray-300 hover:text-white transition">
+          Foto-Archiv
+        </button>
+      </nav>
+
+      <!-- Right Header Actions -->
       <div class="flex items-center gap-2">
         <button onclick="openQrModal()" class="p-2 rounded-lg bg-brand-card border border-brand-border text-gray-300 hover:text-white" title="QR-Code">
-          <i data-lucide="qr-code" class="w-5 h-5"></i>
+          <i data-lucide="qr-code" class="w-4 h-4 sm:w-5 sm:h-5"></i>
         </button>
         <button id="adminBtn" onclick="toggleAdmin()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-card border border-brand-border text-xs font-semibold text-gray-200">
           <i data-lucide="shield" class="w-4 h-4 text-brand-rose"></i>
           <span id="adminBtnText">Admin</span>
         </button>
-        <button id="newEventNavBtn" onclick="openNewEventModal()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold">
-          <i data-lucide="plus-circle" class="w-4 h-4"></i>
-          <span>Event erstellen</span>
-        </button>
       </div>
+
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="flex-grow max-w-7xl mx-auto px-4 py-6 w-full">
-    
-    <!-- View 1: Event List -->
-    <div id="eventListView" class="space-y-6">
-      <div class="text-center py-6 border-b border-brand-border/60">
-        <img src="IMG-20260913-WA0016(1).jpg" alt="BCC by Mel Logo" class="w-32 h-32 rounded-full object-cover mx-auto mb-4 border-2 border-brand-rose shadow-lg">
-        <span class="text-xs uppercase tracking-widest text-brand-rose font-semibold">Exklusive Momente & Erlebnisse</span>
-        <h1 class="text-3xl sm:text-4xl font-extrabold mt-1 text-white">Event & Foto Archiv</h1>
+  <!-- Main Container -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 py-8 w-full">
+
+    <!-- VIEW 1: STARTSEITE (HOME) -->
+    <section id="view-home" class="space-y-12">
+      <!-- Hero Section -->
+      <div class="text-center py-10 sm:py-16 space-y-6 max-w-3xl mx-auto">
+        <div class="relative inline-block">
+          <div class="absolute -inset-1.5 bg-gradient-to-r from-brand-rose to-brand-gold rounded-full blur opacity-40"></div>
+          <img src="IMG-20260913-WA0016(1).jpg" alt="BCC by Mel Logo" class="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full object-cover mx-auto border-2 border-brand-rose shadow-2xl">
+        </div>
+        
+        <div class="space-y-2">
+          <span class="text-xs uppercase tracking-widest text-brand-rose font-bold">Bliss · Chill · Cheers</span>
+          <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight">Exklusive Events & Unvergessliche Momente</h1>
+          <p class="text-sm sm:text-base text-gray-300 leading-relaxed max-w-xl mx-auto pt-2">
+            Willkommen bei BCC by Mel. Entdecke unsere kommenden Partys, sichere dir deine Tickets oder stöbere durch die Highlights vergangener Abende.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap justify-center items-center gap-4 pt-2">
+          <button onclick="navigateTo('upcoming')" class="px-6 py-3 rounded-xl bg-brand-rose text-brand-dark font-bold text-sm shadow-lg hover:bg-brand-accent transition flex items-center gap-2">
+            <i data-lucide="calendar" class="w-4 h-4"></i> Anstehende Events
+          </button>
+          <button onclick="navigateTo('archive')" class="px-6 py-3 rounded-xl bg-brand-card border border-brand-border text-white font-semibold text-sm hover:border-brand-rose/60 transition flex items-center gap-2">
+            <i data-lucide="images" class="w-4 h-4 text-brand-rose"></i> Foto-Archiv ansehen
+          </button>
+        </div>
       </div>
 
-      <div id="eventsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-    </div>
+      <!-- Quick Feature Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-brand-card border border-brand-border p-6 rounded-2xl space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-brand-rose/10 border border-brand-rose/20 flex items-center justify-center text-brand-rose">
+            <i data-lucide="sparkles" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">Unique Atmosphere</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">Einzigartige Locations, erstklassige Musik und exklusive Vibe-Konzepte für besondere Erlebnisse.</p>
+        </div>
 
-    <!-- View 2: Album Details -->
-    <div id="albumView" class="hidden space-y-6">
+        <div class="bg-brand-card border border-brand-border p-6 rounded-2xl space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold">
+            <i data-lucide="ticket" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">Tickets & Gästeliste</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">Verpasse kein Event mehr. Alle Links zu Vorverkäufen und Socials direkt auf einen Klick.</p>
+        </div>
+
+        <div class="bg-brand-card border border-brand-border p-6 rounded-2xl space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-brand-rose/10 border border-brand-rose/20 flex items-center justify-center text-brand-rose">
+            <i data-lucide="camera" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">Event Galerie</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">Finde deine Partyfotos in hoher Auflösung und lade deine Lieblingsmomente kostenlos herunter.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: ANSTEHENDE EVENTS -->
+    <section id="view-upcoming" class="hidden space-y-6">
       <div class="flex flex-wrap items-center justify-between gap-4 border-b border-brand-border/60 pb-4">
-        <button onclick="showEventList()" class="flex items-center gap-2 text-xs font-semibold text-gray-400 hover:text-white">
-          <i data-lucide="arrow-left" class="w-4 h-4"></i> Zurück zur Übersicht
+        <div>
+          <span class="text-xs uppercase tracking-widest text-brand-rose font-semibold">Line-Up & Termine</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-0.5">Anstehende Events</h2>
+        </div>
+        <button id="newUpcomingEventBtn" onclick="openNewUpcomingModal()" class="hidden px-3.5 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold flex items-center gap-1.5">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i> Kommendes Event anlegen
+        </button>
+      </div>
+
+      <div id="upcomingEventsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- VIEW 3: FOTO-ARCHIV (EVENT-ÜBERSICHT) -->
+    <section id="view-archive" class="hidden space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-brand-border/60 pb-4">
+        <div>
+          <span class="text-xs uppercase tracking-widest text-brand-rose font-semibold">Rückblick</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-0.5">Vergangene Events & Fotos</h2>
+        </div>
+        <button id="newArchiveEventBtn" onclick="openNewEventModal()" class="hidden px-3.5 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold flex items-center gap-1.5">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i> Neues Album anlegen
+        </button>
+      </div>
+
+      <div id="archiveEventsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- VIEW 4: ALBUM DETAILS -->
+    <section id="view-album" class="hidden space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-brand-border/60 pb-4">
+        <button onclick="navigateTo('archive')" class="flex items-center gap-2 text-xs font-semibold text-gray-400 hover:text-white">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Zurück zum Archiv
         </button>
         <div id="albumAdminActions" class="hidden flex items-center gap-2">
-          <!-- Titelbild ändern Button -->
           <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-card border border-brand-border text-gray-200 text-xs font-semibold cursor-pointer hover:text-white">
             <i data-lucide="image" class="w-4 h-4 text-brand-rose"></i> Titelbild ändern
             <input type="file" accept="image/*" class="hidden" onchange="changeAlbumCover(event)">
           </label>
-          <!-- Foto hochladen Button -->
           <button onclick="openUploadModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold">
             <i data-lucide="upload" class="w-4 h-4"></i> Foto hochladen
           </button>
-          <!-- Event löschen Button -->
           <button onclick="deleteCurrentEvent()" class="p-1.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30" title="Event löschen">
             <i data-lucide="trash-2" class="w-4 h-4"></i>
           </button>
         </div>
       </div>
 
-      <!-- Album Info Header -->
+      <!-- Header Cover Image -->
       <div class="relative rounded-2xl overflow-hidden border border-brand-border">
-        <img id="albumCoverImg" src="" alt="Album Cover" class="w-full h-48 sm:h-64 object-cover">
+        <img id="albumCoverImg" src="" alt="Album Cover" class="w-full h-48 sm:h-72 object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/60 to-transparent p-6 flex flex-col justify-end">
           <h2 id="albumTitle" class="text-2xl sm:text-3xl font-extrabold text-white"></h2>
           <p id="albumDateLocation" class="text-sm text-brand-rose mt-1 font-medium"></p>
-          <p id="albumDesc" class="text-gray-300 mt-2 text-sm max-w-2xl"></p>
+          <p id="albumDesc" class="text-gray-300 mt-2 text-xs sm:text-sm max-w-2xl"></p>
         </div>
       </div>
 
@@ -123,20 +211,67 @@
         </div>
         <div id="photosGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
       </div>
-    </div>
+    </section>
 
   </main>
 
   <!-- Footer -->
   <footer class="mt-auto border-t border-brand-border/60 py-6 text-center text-xs text-gray-500">
-    BCC by Mel · Bliss Chill and Cheers
+    BCC by Mel · Bliss Chill and Cheers · Alle Rechte vorbehalten
   </footer>
 
-  <!-- Modal: Neues Event (inkl. Titelbild-Upload) -->
+  <!-- MODALS -->
+
+  <!-- Modal: Neues Kommendes Event -->
+  <div id="newUpcomingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
+    <div class="bg-brand-card border border-brand-border rounded-2xl p-6 w-full max-w-md space-y-4">
+      <h3 class="text-xl font-bold text-white flex items-center gap-2">
+        <i data-lucide="calendar-plus" class="w-5 h-5 text-brand-rose"></i> Anstehendes Event hinzufügen
+      </h3>
+      <div class="space-y-3">
+        <div>
+          <label class="text-xs text-gray-400">Event-Titel</label>
+          <input id="upTitle" type="text" placeholder="z. B. BCC White Moers" class="w-full mt-1 px-3 py-2 rounded-lg bg-brand-dark border border-brand-border text-white text-sm focus:outline-none focus:border-brand-rose">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-xs text-gray-400">Datum</label>
+            <input id="upDate" type="text" placeholder="12. September 2026" class="w-full mt-1 px-3 py-2 rounded-lg bg-brand-dark border border-brand-border text-white text-sm focus:outline-none focus:border-brand-rose">
+          </div>
+          <div>
+            <label class="text-xs text-gray-400">Ort / Location</label>
+            <input id="upLocation" type="text" placeholder="Biergarten Moerser Brauhaus" class="w-full mt-1 px-3 py-2 rounded-lg bg-brand-dark border border-brand-border text-white text-sm focus:outline-none focus:border-brand-rose">
+          </div>
+        </div>
+        <div>
+          <label class="text-xs text-gray-400">Beschreibung</label>
+          <textarea id="upDesc" rows="2" placeholder="Ein Nachmittag in Weiß, gute Musik & Drinks..." class="w-full mt-1 px-3 py-2 rounded-lg bg-brand-dark border border-brand-border text-white text-sm focus:outline-none focus:border-brand-rose"></textarea>
+        </div>
+        <div>
+          <label class="text-xs text-gray-400">Ticket- / Info-Link (optional)</label>
+          <input id="upTicketLink" type="url" placeholder="https://..." class="w-full mt-1 px-3 py-2 rounded-lg bg-brand-dark border border-brand-border text-white text-sm focus:outline-none focus:border-brand-rose">
+        </div>
+        <div>
+          <label class="text-xs text-gray-400">Instagram / Social Link (optional)</label>
+          <input id="upSocialLink" type="url" placeholder="https://instagram.com/..." class="w-full mt-1 px-3 py-2 rounded-lg bg-brand-dark border border-brand-border text-white text-sm focus:outline-none focus:border-brand-rose">
+        </div>
+        <div>
+          <label class="text-xs text-gray-400">Flyer / Cover-Bild</label>
+          <input id="upCoverInput" type="file" accept="image/*" class="w-full mt-1 text-xs text-gray-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-rose file:text-brand-dark cursor-pointer">
+        </div>
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button onclick="closeNewUpcomingModal()" class="px-4 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white">Abbrechen</button>
+        <button onclick="saveNewUpcomingEvent()" class="px-4 py-2 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold shadow-lg">Veröffentlichen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Neues Archiv Event -->
   <div id="newEventModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
     <div class="bg-brand-card border border-brand-border rounded-2xl p-6 w-full max-w-md space-y-4">
       <h3 class="text-xl font-bold text-white flex items-center gap-2">
-        <i data-lucide="calendar-plus" class="w-5 h-5 text-brand-rose"></i> Neues Event erstellen
+        <i data-lucide="folder-plus" class="w-5 h-5 text-brand-rose"></i> Neues Foto-Album anlegen
       </h3>
       <div class="space-y-3">
         <div>
@@ -158,7 +293,7 @@
           <textarea id="newEventDesc" rows="2" placeholder="Kurze Beschreibung..." class="w-full mt-1 px-3 py-2 rounded-lg bg-brand-dark border border-brand-border text-white text-sm focus:outline-none focus:border-brand-rose"></textarea>
         </div>
         <div>
-          <label class="text-xs text-gray-400">Titelbild / Cover (vom Handy auswählen)</label>
+          <label class="text-xs text-gray-400">Titelbild / Cover</label>
           <input id="newEventCoverInput" type="file" accept="image/*" class="w-full mt-1 text-xs text-gray-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-rose file:text-brand-dark cursor-pointer">
         </div>
       </div>
@@ -189,9 +324,9 @@
   <!-- Modal: QR Code -->
   <div id="qrModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg">
     <div class="bg-brand-card border border-brand-border rounded-2xl p-6 w-full max-w-xs text-center space-y-4">
-      <h3 class="text-lg font-bold text-white">Galerie teilen</h3>
+      <h3 class="text-lg font-bold text-white">Website teilen</h3>
       <div id="qrcode" class="p-3 bg-white rounded-xl inline-block shadow-lg"></div>
-      <p class="text-xs text-gray-400">QR-Code scannen, um die Galerie direkt auf dem Smartphone zu öffnen.</p>
+      <p class="text-xs text-gray-400">QR-Code scannen, um die Seite direkt auf dem Smartphone zu öffnen.</p>
       <button onclick="closeQrModal()" class="w-full py-2 rounded-lg bg-brand-dark border border-brand-border text-xs font-semibold text-white">Schließen</button>
     </div>
   </div>
@@ -200,6 +335,20 @@
     const ADMIN_PIN = '1234';
     let isAdmin = false;
     let currentEventId = null;
+
+    // Standarddaten
+    const defaultUpcoming = [
+      {
+        id: 'upcoming-1',
+        title: 'BCC White Moers - Summer Garden Party',
+        date: '12. September 2026',
+        location: 'Biergarten Moerser Brauhaus',
+        description: 'Ein Nachmittag in Weiß, feinste Beats, Cocktails & unvergessliche Sommermomente.',
+        cover: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80',
+   ticketLink: '',
+        socialLink: 'https://instagram.com'
+      }
+    ];
 
     const defaultEvents = [
       {
@@ -215,9 +364,11 @@
       }
     ];
 
+    let upcomingEvents = JSON.parse(localStorage.getItem('bcc_upcoming')) || defaultUpcoming;
     let events = JSON.parse(localStorage.getItem('bcc_events')) || defaultEvents;
 
-    function saveEventsToStorage() {
+    function saveToStorage() {
+      localStorage.setItem('bcc_upcoming', JSON.stringify(upcomingEvents));
       localStorage.setItem('bcc_events', JSON.stringify(events));
     }
 
@@ -230,6 +381,27 @@
       });
     }
 
+    // Navigation System
+    function navigateTo(viewId) {
+      ['home', 'upcoming', 'archive', 'album'].forEach(v => {
+        const el = document.getElementById('view-' + v);
+        if (el) el.classList.add('hidden');
+      });
+
+      const activeView = document.getElementById('view-' + viewId);
+      if (activeView) activeView.classList.remove('hidden');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      const activeNavBtn = document.getElementById('nav-' + viewId);
+      if (activeNavBtn) activeNavBtn.classList.add('active');
+
+      if (viewId === 'upcoming') renderUpcomingEvents();
+      if (viewId === 'archive') renderArchiveEvents();
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Admin Mode
     function toggleAdmin() {
       if (isAdmin) {
         isAdmin = false;
@@ -248,44 +420,149 @@
     function updateAdminUI() {
       const adminBtn = document.getElementById('adminBtn');
       const adminBtnText = document.getElementById('adminBtnText');
-      const newEventNavBtn = document.getElementById('newEventNavBtn');
+      const newUpcomingEventBtn = document.getElementById('newUpcomingEventBtn');
+      const newArchiveEventBtn = document.getElementById('newArchiveEventBtn');
       const albumAdminActions = document.getElementById('albumAdminActions');
 
       if (isAdmin) {
         adminBtn.classList.add('bg-brand-rose/20', 'border-brand-rose');
         adminBtnText.innerText = 'Admin aktiv';
-        newEventNavBtn.classList.remove('hidden');
+        newUpcomingEventBtn.classList.remove('hidden');
+        newArchiveEventBtn.classList.remove('hidden');
         albumAdminActions.classList.remove('hidden');
       } else {
         adminBtn.classList.remove('bg-brand-rose/20', 'border-brand-rose');
         adminBtnText.innerText = 'Admin';
-        newEventNavBtn.classList.add('hidden');
+        newUpcomingEventBtn.classList.add('hidden');
+        newArchiveEventBtn.classList.add('hidden');
         albumAdminActions.classList.add('hidden');
       }
-      renderEvents();
+      renderUpcomingEvents();
+      renderArchiveEvents();
+    }
+    // Upcoming Events Rendering
+    function renderUpcomingEvents() {
+      const grid = document.getElementById('upcomingEventsGrid');
+      grid.innerHTML = '';
+
+      if (upcomingEvents.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-12 text-center text-gray-500 text-sm">Zurzeit sind keine Events geplant. Schau bald wieder vorbei!</div>`;
+        return;
+      }
+
+      upcomingEvents.forEach((ev, idx) => {
+        const card = document.createElement('div');
+        card.className = 'bg-brand-card border border-brand-border rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between';
+        card.innerHTML = `
+          <div>
+            <div class="relative h-56 bg-brand-dark overflow-hidden">
+              <img src="${ev.cover}" alt="${ev.title}" class="w-full h-full object-cover">
+              ${isAdmin ? `
+                <button onclick="deleteUpcomingEvent(${idx})" class="absolute top-3 right-3 p-2 rounded-lg bg-red-500/80 text-white hover:bg-red-600 backdrop-blur" title="Event entfernen">
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+              ` : ''}
+            </div>
+            <div class="p-5 space-y-2">
+              <div class="text-xs font-semibold text-brand-rose uppercase tracking-wider">${ev.date} · ${ev.location}</div>
+              <h3 class="text-xl font-bold text-white">${ev.title}</h3>
+              <p class="text-xs text-gray-300 leading-relaxed">${ev.description || ''}</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0 flex items-center gap-2">
+            ${ev.ticketLink ? `
+              <a href="${ev.ticketLink}" target="_blank" class="flex-1 py-2.5 rounded-xl bg-brand-rose text-brand-dark text-xs font-bold text-center hover:bg-brand-accent transition flex items-center justify-center gap-1.5">
+                <i data-lucide="ticket" class="w-4 h-4"></i> Tickets
+              </a>
+            ` : ''}
+            ${ev.socialLink ? `
+              <a href="${ev.socialLink}" target="_blank" class="flex-1 py-2.5 rounded-xl bg-brand-dark border border-brand-border text-white text-xs font-semibold text-center hover:border-brand-rose transition flex items-center justify-center gap-1.5">
+                <i data-lucide="instagram" class="w-4 h-4 text-brand-rose"></i> Social / Infos
+              </a>
+            ` : ''}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+      lucide.createIcons();
     }
 
-    function renderEvents() {
-      const grid = document.getElementById('eventsGrid');
+    // Modal: Anstehendes Event
+    function openNewUpcomingModal() {
+      document.getElementById('upTitle').value = '';
+      document.getElementById('upDate').value = '';
+      document.getElementById('upLocation').value = '';
+      document.getElementById('upDesc').value = '';
+      document.getElementById('upTicketLink').value = '';
+      document.getElementById('upSocialLink').value = '';
+      document.getElementById('upCoverInput').value = '';
+      document.getElementById('newUpcomingModal').classList.remove('hidden');
+    }
+
+    function closeNewUpcomingModal() {
+      document.getElementById('newUpcomingModal').classList.add('hidden');
+    }
+
+    async function saveNewUpcomingEvent() {
+      const title = document.getElementById('upTitle').value.trim();
+      const date = document.getElementById('upDate').value.trim();
+      const location = document.getElementById('upLocation').value.trim();
+      const desc = document.getElementById('upDesc').value.trim();
+      const ticketLink = document.getElementById('upTicketLink').value.trim();
+      const socialLink = document.getElementById('upSocialLink').value.trim();
+      const coverInput = document.getElementById('upCoverInput');
+
+      if (!title) {
+        alert('Bitte gib mindestens einen Event-Titel an!');
+        return;
+      }
+
+      let coverUrl = 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80';
+      if (coverInput.files && coverInput.files[0]) {
+        coverUrl = await readFileAsBase64(coverInput.files[0]);
+      }
+
+      upcomingEvents.unshift({
+        id: 'upcoming-' + Date.now(),
+        title,
+        date: date || 'Datum folgt',
+        location: location || 'Location folgt',
+        description: desc,
+        ticketLink,
+        socialLink,
+        cover: coverUrl
+      });
+
+      saveToStorage();
+      closeNewUpcomingModal();
+      renderUpcomingEvents();
+    }
+    }
+
+    // Archive Rendering
+    function renderArchiveEvents() {
+      const grid = document.getElementById('archiveEventsGrid');
       grid.innerHTML = '';
 
       events.forEach(event => {
         const card = document.createElement('div');
-        card.className = 'bg-brand-card border border-brand-border rounded-2xl overflow-hidden shadow-lg flex flex-col group';
+        card.className = 'bg-brand-card border border-brand-border rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between group';
         card.innerHTML = `
-          <div class="relative h-48 overflow-hidden bg-brand-dark">
-            <img src="${event.cover}" alt="${event.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-            <span class="absolute top-3 left-3 bg-black/60 backdrop-blur text-[11px] font-semibold text-white px-2.5 py-1 rounded-full border border-white/10">
-              ${event.photos.length} Fotos
-            </span>
-          </div>
-          <div class="p-5 flex flex-col flex-grow justify-between space-y-4">
-            <div>
-              <div class="text-xs font-semibold text-brand-rose uppercase tracking-wider">${event.date} · ${event.location}</div>
-              <h3 class="text-lg font-bold text-white mt-1 leading-snug">${event.title}</h3>
-              <p class="text-xs text-gray-400 mt-1 line-clamp-2">${event.description || ''}</p>
+          <div>
+            <div class="relative h-48 overflow-hidden bg-brand-dark">
+              <img src="${event.cover}" alt="${event.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+              <span class="absolute top-3 left-3 bg-black/60 backdrop-blur text-[11px] font-semibold text-white px-2.5 py-1 rounded-full border border-white/10">
+                ${event.photos.length} Fotos
+              </span>
             </div>
-            <button onclick="openAlbum('${event.id}')" class="w-full py-2.5 rounded-xl bg-brand-dark hover:bg-brand-rose/10 border border-brand-border text-xs font-semibold text-white flex items-center justify-between px-4 transition-colors">
+            <div class="p-5 space-y-2">
+              <div class="text-xs font-semibold text-brand-rose uppercase tracking-wider">${event.date} · ${event.location}</div>
+              <h3 class="text-lg font-bold text-white leading-snug">${event.title}</h3>
+              <p class="text-xs text-gray-400 line-clamp-2">${event.description || ''}</p>
+            </div>
+          </div>
+          <div class="p-5 pt-0">
+            <button onclick="openAlbum('${event.id}')" class="w-full py-2.5 rounded-xl bg-brand-dark hover:bg-brand-rose/10 border border-brand-border text-xs font-semibold text-white flex items-center justify-between px-4 transition">
               <span>Album ansehen</span>
               <i data-lucide="arrow-right" class="w-4 h-4 text-brand-rose"></i>
             </button>
@@ -296,13 +573,13 @@
       lucide.createIcons();
     }
 
+    // Album Views
     function openAlbum(id) {
       currentEventId = id;
       const event = events.find(e => e.id === id);
       if (!event) return;
 
-      document.getElementById('eventListView').classList.add('hidden');
-      document.getElementById('albumView').classList.remove('hidden');
+      navigateTo('album');
 
       document.getElementById('albumTitle').innerText = event.title;
       document.getElementById('albumDateLocation').innerText = `${event.date} · ${event.location}`;
@@ -311,15 +588,6 @@
       document.getElementById('photoCountBadge').innerText = `${event.photos.length} Fotos`;
 
       renderAlbumPhotos(event);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function showEventList() {
-      currentEventId = null;
-      document.getElementById('albumView').classList.add('hidden');
-      document.getElementById('eventListView').classList.remove('hidden');
-      renderEvents();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function renderAlbumPhotos(event) {
@@ -327,7 +595,7 @@
       grid.innerHTML = '';
 
       if (event.photos.length === 0) {
-        grid.innerHTML = `<div class="col-span-full py-12 text-center text-gray-500 text-sm">Noch keine Fotos in diesem Album.</div>`;
+        grid.innerHTML = `<div class="col-span-full py-12 text-center text-gray-500 text-sm">Noch keine Fotos in diesem Album vorhanden.</div>`;
         return;
       }
 
@@ -352,7 +620,7 @@
       lucide.createIcons();
     }
 
-    // Modal & Action Handler
+    // Archive Modals & Uploads
     function openNewEventModal() {
       document.getElementById('newEventTitle').value = '';
       document.getElementById('newEventDate').value = '';
@@ -383,22 +651,20 @@
         coverUrl = await readFileAsBase64(coverInput.files[0]);
       }
 
-      const newEvent = {
+      events.unshift({
         id: 'event-' + Date.now(),
-        title: title,
+        title,
         date: date || 'Datum folgt',
         location: location || 'Location folgt',
         description: desc,
         cover: coverUrl,
         photos: []
-      };
+      });
 
-      events.unshift(newEvent);
-      saveEventsToStorage();
+      saveToStorage();
       closeNewEventModal();
-      renderEvents();
+      renderArchiveEvents();
     }
-
     async function changeAlbumCover(event) {
       const file = event.target.files[0];
       if (!file || !currentEventId) return;
@@ -407,18 +673,18 @@
       const targetEvent = events.find(e => e.id === currentEventId);
       if (targetEvent) {
         targetEvent.cover = base64Cover;
-        saveEventsToStorage();
+        saveToStorage();
         document.getElementById('albumCoverImg').src = base64Cover;
-        renderEvents();
+        renderArchiveEvents();
       }
     }
 
     function deleteCurrentEvent() {
       if (!currentEventId) return;
-      if (confirm('Möchtest du dieses Event wirklich komplett löschen?')) {
+      if (confirm('Möchtest du dieses Event-Album wirklich löschen?')) {
         events = events.filter(e => e.id !== currentEventId);
-        saveEventsToStorage();
-        showEventList();
+        saveToStorage();
+        navigateTo('archive');
       }
     }
 
@@ -447,7 +713,7 @@
         targetEvent.photos.push(base64);
       }
 
-      saveEventsToStorage();
+      saveToStorage();
       closeUploadModal();
       document.getElementById('photoCountBadge').innerText = `${targetEvent.photos.length} Fotos`;
       renderAlbumPhotos(targetEvent);
@@ -458,12 +724,13 @@
       if (!targetEvent) return;
       if (confirm('Foto wirklich löschen?')) {
         targetEvent.photos.splice(index, 1);
-        saveEventsToStorage();
+        saveToStorage();
         document.getElementById('photoCountBadge').innerText = `${targetEvent.photos.length} Fotos`;
         renderAlbumPhotos(targetEvent);
       }
     }
 
+    // QR Modal
     function openQrModal() {
       document.getElementById('qrcode').innerHTML = '';
       new QRCode(document.getElementById('qrcode'), {
@@ -482,7 +749,7 @@
     }
 
     // Init
-    renderEvents();
+    navigateTo('home');
     updateAdminUI();
   </script>
 </body>
