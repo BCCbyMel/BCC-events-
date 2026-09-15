@@ -30,17 +30,25 @@
       backdrop-filter: blur(8px);
     }
   </style>
-  
-        <div class="w-10 h-10 rounded-full border border-brand-rose/40 flex items-center justify-center bg-brand-card font-bold text-xs text-brand-rose">BCC</div>
-        <div class="flex flex-col"><span class="font-bold text-base text-white">BCC by Mel</span><span class="text-[10px] tracking-widest uppercase text-gray-400">Bliss Chill and Cheers</span></div>
-      </a>
+    <!-- Header (nur noch Aktionen rechts) -->
+  <header class="sticky top-0 z-40 bg-brand-dark/90 backdrop-blur border-b border-brand-border px-4 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-end">
       <div class="flex items-center gap-2">
-        <button onclick="openQrModal()" class="p-2 rounded-lg bg-brand-card border border-brand-border text-gray-300 hover:text-white"><i data-lucide="qr-code" class="w-5 h-5"></i></button>
-        <button id="adminBtn" onclick="toggleAdmin()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-card border border-brand-border text-xs font-semibold text-gray-200"><i data-lucide="shield" class="w-4 h-4 text-brand-rose"></i><span id="adminBtnText">Admin</span></button>
-        <button id="newEventNavBtn" onclick="openNewEventModal()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold"><i data-lucide="plus-circle" class="w-4 h-4"></i><span>Event erstellen</span></button>
+        <button onclick="openQrModal()" class="p-2 rounded-lg bg-brand-card border border-brand-border text-gray-300 hover:text-white" title="QR-Code">
+          <i data-lucide="qr-code" class="w-5 h-5"></i>
+        </button>
+        <button id="adminBtn" onclick="toggleAdmin()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-card border border-brand-border text-xs font-semibold text-gray-200">
+          <i data-lucide="shield" class="w-4 h-4 text-brand-rose"></i>
+          <span id="adminBtnText">Admin</span>
+        </button>
+        <button id="newEventNavBtn" onclick="openNewEventModal()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-rose text-brand-dark text-xs font-bold">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          <span>Event erstellen</span>
+        </button>
       </div>
     </div>
   </header>
+
 
   <main class="flex-grow max-w-7xl mx-auto px-4 py-6 w-full">
     <div id="eventListView" class="space-y-6">
