@@ -31,10 +31,9 @@
         <button id="nav-archive" onclick="navigateTo('archive')" class="nav-btn px-3 py-1.5 rounded-lg border border-transparent text-xs sm:text-sm font-semibold text-gray-300 hover:text-white transition">Foto-Archiv</button>
       </nav>
       <div class="flex items-center gap-2">
+        <!-- Diskreter Status-Indikator, nur sichtbar wenn du als Admin eingeloggt bist -->
+        <span id="adminBadge" onclick="logoutAdmin()" class="hidden cursor-pointer text-[11px] font-bold px-2 py-1 rounded bg-brand-rose/20 text-brand-rose border border-brand-rose/40" title="Tippen zum Abmelden">Admin aktiv ✕</span>
         <button onclick="toggleModal('qrModal', true)" class="p-2 rounded-lg bg-brand-card border border-brand-border text-gray-300 hover:text-white"><i data-lucide="qr-code" class="w-4 h-4 sm:w-5 sm:h-5"></i></button>
-        <button id="adminBtn" onclick="toggleAdmin()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-card border border-brand-border text-xs font-semibold text-gray-200">
-          <i data-lucide="shield" class="w-4 h-4 text-brand-rose"></i><span id="adminBtnText">Admin</span>
-        </button>
       </div>
     </div>
   </header>
@@ -45,7 +44,8 @@
       <div class="text-center py-10 sm:py-16 space-y-6 max-w-3xl mx-auto">
         <div class="relative inline-block">
           <div class="absolute -inset-1.5 bg-gradient-to-r from-brand-rose to-brand-gold rounded-full blur opacity-40"></div>
-          <img src="IMG-20260913-WA0016(1).jpg" alt="BCC by Mel Logo" class="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full object-cover mx-auto border-2 border-brand-rose shadow-2xl">
+          <!-- Geheimer 3-Klick auf das Logo -->
+          <img src="IMG-20260913-WA0016(1).jpg" alt="BCC by Mel Logo" onclick="handleLogoSecretClick()" class="cursor-pointer select-none active:scale-95 transition relative w-36 h-36 sm:w-44 sm:h-44 rounded-full object-cover mx-auto border-2 border-brand-rose shadow-2xl">
         </div>
         <div class="space-y-2">
           <span class="text-xs uppercase tracking-widest text-brand-rose font-bold">Bliss · Chill · Cheers</span>
@@ -190,12 +190,39 @@
   <script>
     const ADMIN_PIN = '1234', FALLBACK_IMG = 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80';
     let isAdmin = false, currentEventId = null;
+    let logoClicks = 0, logoTimer = null;
 
     let upcomingEvents = JSON.parse(localStorage.getItem('bcc_upcoming')) || [{ id: 'upcoming-1', title: 'BCC White Moers - Summer Garden Party', date: '12. September 2026', location: 'Biergarten Moerser Brauhaus', description: 'Ein Nachmittag in Weiß, feinste Beats, Cocktails & unvergessliche Sommermomente.', cover: FALLBACK_IMG, ticketLink: '', socialLink: 'https://instagram.com' }];
     let events = JSON.parse(localStorage.getItem('bcc_events')) || [{ id: 'event-default-1', title: 'BCC White Moers - Summer Garden Party', date: '12. September 2026', location: 'Moerser Brauhaus', description: 'Ein Nachmittag in Weiß, gute Musik & Drinks.', cover: FALLBACK_IMG, photos: [FALLBACK_IMG] }];
 
     const sync = () => { localStorage.setItem('bcc_upcoming', JSON.stringify(upcomingEvents)); localStorage.setItem('bcc_events', JSON.stringify(events)); };
     const toBase64 = f => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(f); });
+
+    // Geheimer 3-Klick Handler auf das Logo
+    function handleLogoSecretClick() {
+      logoClicks++;
+      clearTimeout(logoTimer);
+      if (logoClicks >= 3) {
+        logoClicks = 0;
+        const pin = prompt('Admin-PIN eingeben:');
+        if (pin === ADMIN_PIN) {
+          isAdmin = true;
+          updateAdminUI();
+          alert('Admin-Modus aktiviert!');
+        } else if (pin !== null) {
+          alert('Falsche PIN!');
+        }
+      } else {
+        logoTimer = setTimeout(() => { logoClicks = 0; }, 1200);
+      }
+    }
+
+    function logoutAdmin() {
+      if (confirm('Admin-Modus beenden?')) {
+        isAdmin = false;
+        updateAdminUI();
+      }
+    }
 
     function toggleModal(id, show) {
       const m = document.getElementById(id);
@@ -218,19 +245,8 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function toggleAdmin() {
-      if (isAdmin) { isAdmin = false; } else {
-        const pin = prompt('Admin-PIN:');
-        if (pin === ADMIN_PIN) isAdmin = true; else if (pin !== null) alert('Falsche PIN!');
-      }
-      updateAdminUI();
-    }
-
     function updateAdminUI() {
-      const btn = document.getElementById('adminBtn');
-      btn.classList.toggle('bg-brand-rose/20', isAdmin);
-      btn.classList.toggle('border-brand-rose', isAdmin);
-      document.getElementById('adminBtnText').innerText = isAdmin ? 'Admin aktiv' : 'Admin';
+      document.getElementById('adminBadge')?.classList.toggle('hidden', !isAdmin);
       ['newUpcomingEventBtn', 'newArchiveEventBtn', 'albumAdminActions'].forEach(id => document.getElementById(id)?.classList.toggle('hidden', !isAdmin));
       renderUpcoming(); renderArchive();
       if (window.lucide) lucide.createIcons();
